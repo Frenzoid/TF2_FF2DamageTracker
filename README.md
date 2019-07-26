@@ -9,4 +9,4 @@
 - cvar: `sm_dmgtrck_color_a`: change the A (of the RGBA) Opacity of the tracker.
 - cvar: `sm_dmgtrck_def_enabled`: Enable ff2 damage tracker by default.
 
-## This plugin is not fully testes, if you find any issues, report it to [ISSUES](https://github.com/Frenzoid/FF2DamageTracker/issues).
+## This plugin is not fully tested, if you find any issues, report it to [ISSUES](https://github.com/Frenzoid/FF2DamageTracker/issues).
