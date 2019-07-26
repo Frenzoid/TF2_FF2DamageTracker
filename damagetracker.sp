@@ -10,8 +10,8 @@
 #define MB 4
 #define ME 2048
 public Plugin:myinfo = {
-	name = "Freak Fortress 2: Static Damage Tracker",
-	author = "Frenzoid",
+	name = "Freak Fortress 2: Damage Tracker",
+	author = "Made originally by MasterOfTheXP and reworked by Frenzoid",
 	version = "2",
 };
 /*
