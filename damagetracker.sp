@@ -21,7 +21,18 @@ If a client enables it, the top X damagers will always be printed to the top lef
 
 new damageTracker[MAXPLAYERS + 1];
 new Handle:damageHUD;
-new bool:isFirstLoad = true;
+
+new Handle:g_hVarColorR;
+new Handle:g_hVarColorG;
+new Handle:g_hVarColorB;
+new Handle:g_hVarColorA;
+new Handle:g_hCvarEnabledDefault;
+
+int g_bVarColorR;
+int g_bVarColorG;
+int g_bVarColorB;
+int g_bVarColorA;
+new bool:g_bCvarEnabledDefault;
 
 public APLRes:AskPluginLoad2(Handle:myself, bool:late, String:error[], err_max)
 {
@@ -50,8 +61,6 @@ public OnPluginStart2()
 	g_hCvarEnabledDefault = CreateConVar("sm_dmgtrck_def_enabled", "1", "Enable ff2 damage tracker by default: default value = true", _, true, 0.0, true, 1.0);
 	g_bCvarEnabledDefault = GetConVarBool(g_hCvarEnabledDefault);
 	HookConVarChange(g_hCvarEnabledDefault, OnConVarChange);
-
-	isFirstLoad = g_bCvarEnabledDefault;
 	
 	HookEvent("player_spawn", OnPlayerSpawn);
 
@@ -284,7 +293,7 @@ public Action:Command_damagetracker(client, args)
 	
 	if (args == -1) {
 		arg1 = "on";
-		isFirstLoad = false;
+		g_bCvarEnabledDefault = false;
 	}
 
 	if (StrEqual(arg1,"off",false)) damageTracker[client] = 0;
@@ -317,7 +326,7 @@ public Action:FF2_OnAbility2(index, const String:plugin_name[], const String:abi
 
 public OnPlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 {
-	if (isFirstLoad) {
+	if (g_bCvarEnabledDefault) {
 		new client = GetClientOfUserId(GetEventInt(event, "userid"));
 		Command_damagetracker(client, -1);
 	}
