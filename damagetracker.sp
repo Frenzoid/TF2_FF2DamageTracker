@@ -10,9 +10,9 @@
 #define MB 4
 #define ME 2048
 public Plugin:myinfo = {
-	name = "Freak Fortress 2: Damage Tracker",
-	author = "Made originally by MasterOfTheXP and reworked by Frenzoid",
-	version = "2",
+	name = "Freak Fortress 2: Static Damage Tracker",
+	author = "Frenzoid",
+	version = "1.5",
 };
 /*
 This plugin for a plugin (bwooong) allows clients to type "!ff2dmg <number 1 to 8>" to enable the damage tracker.
@@ -33,6 +33,7 @@ int g_bVarColorG;
 int g_bVarColorB;
 int g_bVarColorA;
 new bool:g_bCvarEnabledDefault;
+new bool:enabled = true;
 
 public APLRes:AskPluginLoad2(Handle:myself, bool:late, String:error[], err_max)
 {
@@ -66,6 +67,7 @@ public OnPluginStart2()
 
 	RegConsoleCmd("ff2dmg", Command_damagetracker, "ff2dmg - Enable/disable the damage tracker.");
 	RegConsoleCmd("haledmg", Command_damagetracker, "haledmg - Enable/disable the damage tracker.");
+	RegConsoleCmd("ff2dmgdebug", Command_debug, "ff2dmg - Enable/disable the damage tracker.");
 	
 	CreateTimer(0.1, Timer_Millisecond);
 	damageHUD = CreateHudSynchronizer();
@@ -267,6 +269,29 @@ public OnConVarChange(Handle:hConvar, const String:strOldValue[], const String:s
 
 }
 
+public Action:Command_debug(client, args)
+{
+	if (args != 0) {
+		new String:arg1[64];
+		GetCmdArgString(arg1, sizeof(arg1));
+
+		if(StrEqual(arg1,"showInitialStatus",false) && enabled == false)
+			CPrintToChat(client, "{olive}[DMGTRCK]{default} INITIAL STATUS: {olive}LAUNCHED{default}.");
+
+		if(StrEqual(arg1,"showInitialStatus",false) && enabled == true)
+			CPrintToChat(client, "{olive}[DMGTRCK]{default} INITIAL STATUS: {olive}READY{default}.");
+
+
+		if(StrEqual(arg1,"showActualStatus",false) && g_bCvarEnabledDefault == true) 
+			CPrintToChat(client, "{olive}[DMGTRCK]{default} ACTUAL STATUS: {olive}ENABLED{default}.");
+
+		if(StrEqual(arg1,"showActualStatus",false) && g_bCvarEnabledDefault == false) 
+			CPrintToChat(client, "{olive}[DMGTRCK]{default} ACTUAL STATUS: {olive}DISABLED{default}.");
+
+	}
+
+}
+
 public Action:Command_damagetracker(client, args)
 {
 	if (client == 0)
@@ -293,13 +318,12 @@ public Action:Command_damagetracker(client, args)
 	
 	if (args == -1) {
 		arg1 = "on";
-		g_bCvarEnabledDefault = false;
 	}
 
-	if (StrEqual(arg1,"off",false)) damageTracker[client] = 0;
-	if (StrEqual(arg1,"on",false)) damageTracker[client] = 3;
-	if (StrEqual(arg1,"0",false)) damageTracker[client] = 0;
-	if (StrEqual(arg1,"of",false)) damageTracker[client] = 0;
+	if (StrEqual(arg1,"off",false)){ damageTracker[client] = 0; enabled = false; }
+	if (StrEqual(arg1,"on",false)) { damageTracker[client] = 3; enabled = true; }
+	if (StrEqual(arg1,"0",false)) { damageTracker[client] = 0; enabled = false; }
+	if (StrEqual(arg1,"of",false)) { damageTracker[client] = 0; enabled = false; }
 	if (!StrEqual(arg1,"off",false) && !StrEqual(arg1,"on",false) && !StrEqual(arg1,"0",false) && !StrEqual(arg1,"of",false))
 	{
 		newval = StringToInt(arg1);
@@ -326,8 +350,9 @@ public Action:FF2_OnAbility2(index, const String:plugin_name[], const String:abi
 
 public OnPlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 {
-	if (g_bCvarEnabledDefault) {
-		new client = GetClientOfUserId(GetEventInt(event, "userid"));
+	new client = GetClientOfUserId(GetEventInt(event, "userid"));	
+	if (g_bCvarEnabledDefault == true && enabled == true) {
 		Command_damagetracker(client, -1);
 	}
+
 }
