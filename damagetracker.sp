@@ -11,12 +11,13 @@
 #define ME 2048
 public Plugin:myinfo = {
 	name = "Freak Fortress 2: Static Damage Tracker",
-	author = "Frenzoid",
+	author = "Original byMasterOfTheXP, Updated by Frenzoid",
 	version = "1.5",
 };
 /*
-This plugin for a plugin (bwooong) allows clients to type "!ff2dmg <number 1 to 8>" to enable the damage tracker.
+This plugin allows clients to type "!ff2dmg <number 1 to 8>" to enable the damage tracker.
 If a client enables it, the top X damagers will always be printed to the top left of their screen.
+You can personalize the colors and if you want it to be enabled by default for the players.
 */
 
 new damageTracker[MAXPLAYERS + 1];
