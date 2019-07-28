@@ -13,4 +13,10 @@
 
 You can use [this page](https://www.rapidtables.com/web/color/RGB_Color.html) to select the colors.
 
+## Fixes from the original versiion:
+- Tracker no longer disappears after a few minutes.
+
+## Current known bugs:
+- none.
+
 ## This plugin is not fully tested, if you find any issues, report it to [ISSUES](https://github.com/Frenzoid/FF2DamageTracker/issues) or [send me a private message via Steam](https://steamcommunity.com/id/MrFren/).
