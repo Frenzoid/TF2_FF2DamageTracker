@@ -2,7 +2,7 @@
 
 - This is a rework of the [really old ff2 damage tracker plugin](https://forums.alliedmods.net/showthread.php?t=196861) made originally by [MasterOfTheXP](https://forums.alliedmods.net/member.php?u=152150).
 ## How to install.
-- Copy `damagetracker.smx` on your plugins folder.
+- Download this repository (right top green button), and copy `damagetracker.smx` on your plugins folder.
 
 ## New stuff added to this plugin:
 - cvar: `sm_dmgtrck_color_r`: change the R (of the RGBA) Color of the tracker ( 0 to 255 ).
