@@ -13,7 +13,7 @@
 
 You can use [this page](https://www.rapidtables.com/web/color/RGB_Color.html) to select the colors.
 
-## Fixes from the original versiion:
+## Fixes from the original version:
 - Tracker no longer disappears after a few minutes.
 
 ## Current known bugs:
