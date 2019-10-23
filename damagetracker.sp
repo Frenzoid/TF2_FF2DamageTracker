@@ -14,10 +14,15 @@ public Plugin:myinfo = {
 	author = "Original byMasterOfTheXP, Updated by Frenzoid",
 	version = "1.5",
 };
+
 /*
 This plugin allows clients to type "!ff2dmg <number 1 to 8>" to enable the damage tracker.
 If a client enables it, the top X damagers will always be printed to the top left of their screen.
 You can personalize the colors and if you want it to be enabled by default for the players.
+
+Take in consideration that this plugin currently works with SourcePawn > v1.7. 
+Unstable executions of the plugin were detected on older versions of the SourcePawn, 
+altought its compatible with the original ff2 gamemode.
 */
 
 new damageTracker[MAXPLAYERS + 1];
