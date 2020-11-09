@@ -189,7 +189,11 @@ public Action:Timer_Millisecond(Handle:timer)
 			if (a_index == -1) // client is not Hale
 			{
 				new userIsWinner = false;
-
+				
+				// Not sure if when the plugin was originally made, sourcepawn didn't had "switch" support, or if the author had no idea it existed.
+				//   yet, im too lazy to encase all the scenarios that are shown here, as long as it works, i wont be the one to judge the work of
+				//   the ancient gods.
+				
 				if (z == highestDamageClient) userIsWinner = true;
 				if (damageTracker[z] > 1 && z == secondHighestDamageClient) userIsWinner = true;
 				if (damageTracker[z] > 2 && z == thirdHighestDamageClient) userIsWinner = true;
@@ -349,6 +353,8 @@ public OnClientPutInServer(client)
 	damageTracker[client] = 0;
 }
 
+// heres the fix, if the server has any other concurrent plugins that redraw the hud, the tracker will disappear.
+//	Plguin needs to be continued for this to get fixed.
 public Action:FF2_OnAbility2(index, const String:plugin_name[], const String:ability_name[], action)
 {
 	return Plugin_Continue;
@@ -360,5 +366,4 @@ public OnPlayerSpawn(Handle:event, const String:name[], bool:dontBroadcast)
 	if (g_bCvarEnabledDefault == true && enabled == true) {
 		Command_damagetracker(client, -1);
 	}
-
 }
